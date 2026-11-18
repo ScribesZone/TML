@@ -16,12 +16,12 @@
 #   
 
 Class1
-  < Subclass
-  > Superclass
+  < Subclass             # Subclass inherits from Class1 
+  > Superclass           # Class1 inherits from Superclass
   ' description with a reference to _Class1 and _object
   ' markdown [link](https://example.org/target)
   ' image ![view](https://github.com/user-attachments/assets/df4e1749-5086-4b55-8462-4a58c82c5b00)
-  : object
+  : object               # object is an object of Class1 
   - attribute1: DataType[0..1] ~ example ' description
   + reference1: Class1[*]{ordered} opposite of roleÉ
   ... 20% done

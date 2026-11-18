@@ -15,5 +15,9 @@ The directory is structure as follow:
     metamodel/                  A metamodel of TML
       TML.tml                   TML defined using TML
     examples/                   Examples of TML files
+      CheatSheet                A simple CheatSheet with the various notations
+        CheatSheet.tml          The CheatSheet
       GitHubSpark/              The GitHub Spark tool
         GitHubSpark.tml         TML model for GitHubSpark
+      Books                     The Books example
+        Books.tml               A simple example with books and people
