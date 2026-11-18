@@ -1,0 +1,33 @@
+#=============================================================================
+# system:   QuickSyntax
+# author:   xcriptus
+# progress: OOOO-
+#=============================================================================
+
+# TML is based on line segments separated with the following characters
+#    # starts comments
+#    ' starts description (markdown)
+#    - defines attributes (basic values onlyS)
+#    + defines references (roles in UML)
+#    : defines an object
+#    ~ introduces examples
+#    ... indicates that the model element is to be completed
+#    ??? indicates that something must be checked
+#   
+
+Class1
+  < Subclass
+  > Superclass
+  ' description with a reference to _Class1 and _object
+  ' markdown [link](https://example.org/target)
+  ' image ![view](https://github.com/user-attachments/assets/df4e1749-5086-4b55-8462-4a58c82c5b00)
+  : object
+  - attribute1: DataType[0..1] ~ example ' description
+  + reference1: Class1[*]{ordered} opposite of roleÉ
+  ... 20% done
+  ??? to be checked
+
+object : Class1
+  attribute1= "value"
+  attribute2= true
+  attribute2= null

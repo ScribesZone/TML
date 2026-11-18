@@ -1,0 +1,19 @@
+Textual Modeling Language
+=========================
+
+The Textual Modeling language is a small language intented to take notes and build specification
+incrementally. It is suited to define both glossaries and at the same time class and object
+model.
+
+Structure of the directory
+--------------------------
+
+The directory is structure as follow:
+
+    README.md                   This very file
+    cheatSheet.tml              A chearsheet that shows the basic syntax of TML
+    metamodel/                  A metamodel of TML
+      TML.tml                   TML defined using TML
+    examples/                   Examples of TML files
+      GitHubSpark/              The GitHub Spark tool
+        GitHubSpark.tml         TML model for GitHubSpark

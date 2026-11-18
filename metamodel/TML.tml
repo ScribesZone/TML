@@ -1,0 +1,71 @@
+# Metamodel for the Textual Modeling Language.
+
+TML
+  ' A simple Modeling Language based a very simple, line-based textual notation.
+  ' Indentation is two spaces. 
+  ' Classes/concepts/Enumerations are at level 0 and start with uppercases.
+  ' Literals/attributes/references are at level 1 and start with lowercases.
+  ' Blank lines are ignored.
+  ' Lines starting with `#` are comments. They are totally ignored.
+  '
+  ' Descriptions
+  ' - Description lines start with `'`. They are appended to the description of the element it describes.
+  ' - A description can be added at the end of a line, following the `'` character.
+  ' - For instance the following text defines the class Prompt with a description:  `Prompt ' A text submitted to a chat` 
+  ' - Description lines can be at arbitrary levels 
+  ' - Description may contain markdown elements including 
+  '     - links (e.g. `[text](url)`)
+  '     - images (e.g. `![text](url)` )
+  ' - Words starting with an underscore (e.g `_Monkey`)(are references to symbols in the specification. This could be an Enumeration or a Class. 
+  ' 
+  ' Enumerations
+  ' - Enumerations can be defined at level 0 as following : "enum WeekDays" (level 0).
+  ' - Enumeration names start with uppercases.
+  ' - Enumerations are composed of Literals (level 1).
+  ' 
+  ' Literals
+  ' - Literals can be defined at the level 1 within the context of an Enumeration. For instance "  - Monday" is a WeekDay.
+  ' - Literal names start with lowercases.
+  '
+  ' Classes
+  ' - Class lines start with an identifier starting with an uppercase (level 0).
+  ' - For instance `Prompt`.
+  ' - A Class may inherit from another class. Example: `Monkey < Animal`
+  '
+  ' DataTypes
+  ' - DataTypes are defined at level 0 as following : `datatype Money` or `dataType Money < Real`.
+  ' - DataTypes are possible types of attributes. 
+  ' - The following DataTypes are always available : `String`, `Integer`, `Real`, `Boolan`, `Date`, `DateTime`, `Image`, `URL`, `Markdown`.
+  '
+  ' Attributes
+  ' - Attributes are defined at level 1, in the context of a class.  
+  ' - `-` introduces attributes. 
+  ' - Attributes names start with lowercases.
+  ' - Attribute lines looks like this: `  - attr1: String[0..1]`.
+  ' - The type of an attribute MUST be either a DataType or an Enumeration (by contrast with references (`+`) that use to classes). 
+  ' - The type of an attribute can be an inline Enumeration (e.g. `status: on|off|suspended`).
+  ' - Attributes may have a multiplicity, 
+  ' - It is possible to give some examples of values as following `  - name: String ~ "Cheetah", "my king"`
+  '
+  ' References
+  ' - References are defined at level 1, inside the context of a class.
+  ' - References look like this: `  + ref1: Class1[*]{ordered}`
+  ' - Names of refereences must start with lowercases.
+  '
+  ' Multiplicities
+  ' - Multiplicities can be added after an attribute type or a reference type.
+  ' - If not stated the multiplicity is `[1..1]`.
+  ' - `[0..1]` means optional.
+  ' - Multiple examples includes `[0..*]`, `[*]`, `[1..4]`
+  ' - `{ordered}` can follow multiple multiplicites. It indicates that the collection is ordered.
+  ' - example: `Prompt[0..*]{ordered}`
+  "
+  " Objects
+  " - Objects can be defined at level 0 as following : `chetah : Monkey`
+  "
+  " Slots
+  " - Slots are attribute values of an object.
+  " - Slots are defined in the context of an object as following - name = "Cheetah".
+ 
+
+

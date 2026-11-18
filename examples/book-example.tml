@@ -1,0 +1,30 @@
+# Example of TML model
+
+datatype Year < Integer
+
+Book
+  ' A book description in **markdown**
+  ' line2 of Book description
+  - title: String                  ~ 'Germinal', 'Dune'
+  - numberOfPages: Integer         ~ 485
+  - description: Markdown[0..1]
+  - status: available | onHold | inTransit
+  - author: Person                 ~ emileZola, 
+  - readers: Person[0..*]          ~ [lea]
+  - borrower: Person[0..1]
+
+Novel < Book 
+
+Person
+  - name : String                ~ 'Lea Moonen'
+  - birth : Year
+  - authoredBooks: Books[*] opposite author
+  - readBooks: Books[*] opposite readers
+  - ...   " 70% done 
+
+emileZola : Person
+  - name = 'Emile Zola'
+  - birth = 1840
+  - ... 20% done
+  
+lea : Person  

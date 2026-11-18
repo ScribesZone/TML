@@ -1,0 +1,185 @@
+#=============================================================================
+# system:   GitHubSpark
+# author:   xcriptus
+# progress: OOO--
+#=============================================================================
+
+GithubSparkTool
+  ' Vibecoding tool by GitHub.
+  ' [site](https://github.com/spark)
+  ' [docs](https://docs.github.com/en/copilot/concepts/spark) 
+  ' [how to](https://docs.github.com/en/copilot/tutorials/spark/build-apps-with-spark)
+  ' type: Natural language programming
+  ' target: fullstack app, data storage, ai features, authentification
+  ' stack: React + TypeScript + (cosmos DB key-value store)
+  ' development interface: prompt, visual tool, code
+  ' remote dev: GitHubCodeSpace
+  ' execution: fully managed runtime
+  ' One click deployement
+  ' One click github repository
+  ' App can embed AI capabilities (smart software)
+  ' Autenthication with GitHub users.
+  ' Input: Prompt + image (Mocks, sketches, or screenshots).
+  ' Live, interactive preview of the app
+  ' Spark environment + synchronized code space + github repo 2 way-synch
+  ' Sharing to spark: view/interact the app, as readonly ?
+  ' limitations :
+  '    - library, to test
+  '    - data store visible by all user/developer?
+
+
+#------------------------------------------------------------------------------------
+#  Gpbal concepts
+#------------------------------------------------------------------------------------
+
+User
+  + sparks: Spark[*]
+
+
+
+Spark
+  ' A _Spark is an application created via the _GitHubSparkTool
+  - ![view](https://github.com/user-attachments/assets/df4e1749-5086-4b55-8462-4a58c82c5b00)
+  - name: String
+  - status: unpublished | published | hasUnpublishedChanges
+  - visibility: private | organization | githubUsers
+  - publishedURL: URL[0..1] 
+  + chat: Chat                         ' See _IteratePanel
+     ' only one _Chat, the first _Prompt, then _Prompt for improvements
+  + repository: Repository[0..1]      ' GitHub repository
+  + codeSpace: CodeSpace[0..1]
+  + owner: Owner[0..1]             
+  + theme: Theme                      ' See _ThemePanel
+  + data: Data                        ' See _DataPanel
+  + prompts: Prompt[*]                ' See _PromptPanel
+      ' AI capabilities can be added to the _Spark by asking in the _Chat.
+      ' The _Prompts powering these features can ne seen in the _PromptPanel.
+      ??? make the difference between _Prompts from _Chat and these _Prompts.
+  + assets: Files[*]                  ' See _Assets
+  - publish()
+
+#------------------------------------------------------------------------------------
+#  Theme concepts
+#------------------------------------------------------------------------------------
+ 
+Theme
+  ' [doc](https://docs.github.com/en/copilot/tutorials/spark/build-apps-with-spark#step-3-customize-the-styling-of-your-app)
+  ' See _ThemePanel.
+  + typography: ...
+  + color: ...
+  + appearance: ...
+
+#------------------------------------------------------------------------------------
+#  Data concepts
+#------------------------------------------------------------------------------------
+
+Data
+  ' A _Data section is associated with each _Spark (see "Data" tab).
+  ' This allows to examine both the _DataModel and the data itself.
+  ' [doc](https://docs.github.com/en/copilot/tutorials/spark/build-apps-with-spark#step-4-store-and-manage-data)
+  ' See _DataPanel
+  + dataModel: DataModel[0..1]
+  + rows:Row[0..*]
+
+DataModel
+  ' unamed
+  + tables: Table[*]
+
+Table
+  - name: String
+  + /idColumn: Column
+  + columns: Column[*]{ordered}
+  - /nbOfRows: Integer
+  + rows: Rows[*]
+  - /json: JSON
+
+Column
+  - name: String
+
+Row
+  - table: Table opposite of rows
+  + slots: Slot[*]
+  - /json: JSON
+
+Slot
+  ' unamed
+  ' A _Slot can contains multiple values when the cardinality is multiple
+  + column: Column
+  - values: String[*]
+
+#------------------------------------------------------------------------------------
+#  Chat concepts
+#------------------------------------------------------------------------------------
+
+Chat
+  ' Serie of _Interactions leading to the current state of the _Spark.
+  ' See _IteratePanel
+  - status: ready | working
+  + interactions: Interaction[*]{ordered}
+  + suggestions: Suggestion[*]
+  - start()
+  - stop()
+
+Interaction
+  ' unamed
+  + prompt: Prompt
+  + reponse: Response[0..1]
+  + error: Errors[*]
+  - fixAll()
+
+Prompt
+  ' unamed
+  ' Mention data storage in the prompt if required (see _Data and _DataPanel).
+  ' Mention AI capabilities in the prompt if required (see _PromptsPanel).
+  - content: String[0..1]
+  - image: Image[0..1]
+  ??? Check the difference with the prompts in _PromptPanel
+
+Image
+  ' Mocks, sketches, or screenshots.
+  ' Added to a _Prompt.
+
+Error
+  - type: runtimeError | ...
+  - location: String?  ~ node_modules/.vite/deps/chunk-RUPNRBO7.js:1058:9
+  - description: String
+  + attachement: ???
+
+Response ...
+
+Debugging
+  ' [doc](https://docs.github.com/en/copilot/tutorials/spark/your-first-spark#debugging-your-app)
+
+Suggestion
+  - description: String
+
+#------------------------------------------------------------------------------------
+#  User interface
+#------------------------------------------------------------------------------------
+
+SparkWindow
+  ' ![view](https://github.com/user-attachments/assets/df4e1749-5086-4b55-8462-4a58c82c5b00)
+  ...
+
+IteratePanel
+  ' ![view](https://github.com/user-attachments/assets/9cd4f86f-d204-46f7-809c-0861b0d1cef9)
+  ' concepts: _Chat, _Interaction, _Prompt, Response, _Error
+  ...
+
+ThemePanel ...
+  ' ![view](https://github.com/user-attachments/assets/5791c9da-dbfd-4264-b45f-a9cc02d2e11d)
+  ' concepts: _Theme, _Typography, _Color, _Appearance
+  ...
+
+DatePanel ...
+  ' concepts: Data, DataModel, _Table, Column, _Row, _Slot
+
+PromptsPanel ...
+
+AssetsPanel ...
+
+PreviewPanel ...
+
+CodePanel ...
+
+PublishButton ...
